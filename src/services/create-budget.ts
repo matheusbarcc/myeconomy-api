@@ -1,5 +1,7 @@
 import { BudgetsRepository } from "@/repositories/budgets-repository";
 import { BudgetDateAlreadyExistsError } from "./errors/budget-date-already-exists-error";
+import dayjs from "dayjs";
+import { BudgetBeforeCurrentDateError } from "./errors/budget-before-current-date-error";
 
 interface CreateBudgetServiceRequest {
   userId: string;
@@ -11,9 +13,16 @@ export class CreateBudgetService {
   constructor(private budgetRepository: BudgetsRepository) {}
 
   async execute({ userId, amountInCents, date }: CreateBudgetServiceRequest) {
-    const budgetWithSameDate = await this.budgetRepository.findByDate(date);
+    const budgetInSameMonth = await this.budgetRepository.findByYearAndMonth(
+      userId,
+      date.getUTCFullYear(),
+      date.getUTCMonth()
+    );
 
-    if (budgetWithSameDate) {
+    if (dayjs(date).isBefore(new Date())) {
+      throw new BudgetBeforeCurrentDateError();
+    }
+    if (budgetInSameMonth) {
       throw new BudgetDateAlreadyExistsError();
     }
 

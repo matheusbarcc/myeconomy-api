@@ -5,6 +5,7 @@ import { FastifyReply, FastifyRequest } from "fastify";
 import { z } from "zod";
 import { PrismaBudgetsRepository } from "@/repositories/prisma/prisma-budgets-repostiory";
 import { BudgetDateAlreadyExistsError } from "@/services/errors/budget-date-already-exists-error";
+import { BudgetBeforeCurrentDateError } from "@/services/errors/budget-before-current-date-error";
 
 export async function createBudget(
   request: FastifyRequest,
@@ -29,6 +30,10 @@ export async function createBudget(
   } catch (err) {
     if (err instanceof BudgetDateAlreadyExistsError) {
       return reply.status(409).send({ message: err.message });
+    }
+
+    if (err instanceof BudgetBeforeCurrentDateError) {
+      return reply.status(400).send({ message: err.message });
     }
 
     throw err;

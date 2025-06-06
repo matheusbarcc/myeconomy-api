@@ -9,10 +9,14 @@ export class PrismaBudgetsRepository implements BudgetsRepository {
     return budgets;
   }
 
-  async findByDate(date: Date) {
+  async findByYearAndMonth(userId: string, year: number, month: number) {
     const budget = await prisma.budget.findFirst({
       where: {
-        date,
+        user_id: userId,
+        date: {
+          gte: new Date(Date.UTC(year, month, 1)),
+          lt: new Date(Date.UTC(year, month + 1, 1)),
+        },
       },
     });
 
