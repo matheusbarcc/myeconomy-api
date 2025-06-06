@@ -3,7 +3,7 @@ import { signUp } from "./controllers/sign-up";
 import { signIn } from "./controllers/sign-in";
 import { verifyJWT } from "./middlewares/verify-jwt";
 import { getUserDetails } from "./controllers/get-user-details";
-import { updateUser } from "./controllers/update-user";
+import { createBudget } from "./controllers/create-budget";
 
 export async function appRoutes(app: FastifyInstance) {
   // public
@@ -12,5 +12,6 @@ export async function appRoutes(app: FastifyInstance) {
 
   // private
   app.get("/me", { onRequest: [verifyJWT] }, getUserDetails);
-  app.put("/me", { onRequest: [verifyJWT] }, updateUser);
+
+  app.post("/budgets", { onRequest: [verifyJWT] }, createBudget);
 }
