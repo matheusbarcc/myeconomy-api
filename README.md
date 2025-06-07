@@ -36,7 +36,7 @@
 - [X] POST /expenses
   - req: { description, amountInCents, date }
 
-- [ ] PUT /expenses
+- [X] PUT /expenses
   - req: { id, description, amountInCents, date }
 
 - [ ] DELETE /expenses/{ id }
