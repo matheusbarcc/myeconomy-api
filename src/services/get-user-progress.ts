@@ -40,7 +40,8 @@ export class GetProgressService {
 
     return {
       progress: {
-        date: dayjs(dateToFetch).format("YYYY-MM"),
+        // adicionei um dia pq dayjs coloca no mes anterior caso dateToFetch for dia 01
+        date: dayjs(dateToFetch).add(1, "day").format("YYYY-MM"),
         spentInCents: spentAmountInMonth,
         budgetInCents: budget.amount_in_cents,
         status,
