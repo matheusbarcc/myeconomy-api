@@ -9,6 +9,7 @@ import { deleteBudget } from "./controllers/delete-budget";
 import { fetchUserBudgets } from "./controllers/fetch-budgets";
 import { createExpense } from "./controllers/create-expense";
 import { updateExpense } from "./controllers/update-expense";
+import { deleteExpense } from "./controllers/delete-expense";
 
 export async function appRoutes(app: FastifyInstance) {
   // public
@@ -25,4 +26,5 @@ export async function appRoutes(app: FastifyInstance) {
 
   app.post("/expenses", { onRequest: [verifyJWT] }, createExpense);
   app.put("/expenses", { onRequest: [verifyJWT] }, updateExpense);
+  app.delete("/expenses/:expenseId", { onRequest: [verifyJWT] }, deleteExpense);
 }

@@ -39,7 +39,7 @@
 - [X] PUT /expenses
   - req: { id, description, amountInCents, date }
 
-- [ ] DELETE /expenses/{ id }
+- [X] DELETE /expenses/{ id }
 
 - [ ] GET /expenses/{ date }
   - res: { id, amountInCents, date }[]
