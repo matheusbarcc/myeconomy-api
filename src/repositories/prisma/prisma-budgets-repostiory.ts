@@ -3,8 +3,15 @@ import { Prisma } from "generated/prisma";
 import { BudgetsRepository } from "../budgets-repository";
 
 export class PrismaBudgetsRepository implements BudgetsRepository {
-  async findMany() {
-    const budgets = await prisma.budget.findMany();
+  async findManyByUserId(userId: string) {
+    const budgets = await prisma.budget.findMany({
+      where: {
+        user_id: userId,
+      },
+      orderBy: {
+        date: "desc",
+      },
+    });
 
     return budgets;
   }

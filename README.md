@@ -23,10 +23,10 @@
 - [X] POST /budgets
   - req: { amount, date }
 
-- [ ] PUT /budgets
+- [X] PUT /budgets
   - req: { id, amount, date }
 
-- [ ] DELETE /budgets/{ id }
+- [X] DELETE /budgets/{ id }
 
 - [ ] GET /budgets
   - res: { id, amount, date }[]

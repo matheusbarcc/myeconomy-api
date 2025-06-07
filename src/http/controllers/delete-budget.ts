@@ -1,38 +1,32 @@
 import { PrismaBudgetsRepository } from "@/repositories/prisma/prisma-budgets-repostiory";
+import { DeleteBudgetService } from "@/services/delete-budget";
 import { BudgetBeforeCurrentDateError } from "@/services/errors/budget-before-current-date-error";
 import { BudgetDateAlreadyExistsError } from "@/services/errors/budget-date-already-exists-error";
 import { ResourceNotFoundError } from "@/services/errors/resource-not-found-error";
 import { UserNotAllowedError } from "@/services/errors/user-not-allowed-error";
-import { UpdateBudgetService } from "@/services/update-budget";
 import { FastifyReply, FastifyRequest } from "fastify";
 import { z } from "zod";
 
-export async function updateBudget(
+export async function deleteBudget(
   request: FastifyRequest,
   reply: FastifyReply
 ) {
-  const updateBudgetBodySchema = z.object({
-    id: z.string(),
-    amountInCents: z.number(),
-    date: z.coerce.date(),
+  const deleteBudgetBodySchema = z.object({
+    budgetId: z.string(),
   });
 
-  const { id, amountInCents, date } = updateBudgetBodySchema.parse(
-    request.body
-  );
+  const { budgetId } = deleteBudgetBodySchema.parse(request.params);
 
   try {
     const budgetsRepository = new PrismaBudgetsRepository();
-    const updateBudgetService = new UpdateBudgetService(budgetsRepository);
+    const deleteBudgetService = new DeleteBudgetService(budgetsRepository);
 
-    await updateBudgetService.execute({
-      budgetId: id,
-      amountInCents,
-      date,
+    await deleteBudgetService.execute({
       userId: request.user.sub,
+      budgetId,
     });
   } catch (err) {
-    if (err instanceof BudgetBeforeCurrentDateError) {
+    if (err instanceof ResourceNotFoundError) {
       return reply.status(400).send({ message: err.message });
     }
 
@@ -40,12 +34,8 @@ export async function updateBudget(
       return reply.status(401).send({ message: err.message });
     }
 
-    if (err instanceof ResourceNotFoundError) {
+    if (err instanceof BudgetBeforeCurrentDateError) {
       return reply.status(400).send({ message: err.message });
-    }
-
-    if (err instanceof BudgetDateAlreadyExistsError) {
-      return reply.status(409).send({ message: err.message });
     }
 
     throw err;

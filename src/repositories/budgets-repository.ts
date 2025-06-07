@@ -1,7 +1,7 @@
 import { Prisma, Budget } from "generated/prisma";
 
 export interface BudgetsRepository {
-  findMany(): Promise<Budget[]>;
+  findManyByUserId(userId: string): Promise<Budget[]>;
   findByYearAndMonth(
     userId: string,
     year: number,
