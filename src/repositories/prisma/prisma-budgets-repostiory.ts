@@ -20,8 +20,6 @@ export class PrismaBudgetsRepository implements BudgetsRepository {
     const year = date?.getUTCFullYear();
     const month = date?.getUTCMonth();
 
-    console.log(year, month);
-
     const budgets = await prisma.budget.findFirst({
       where: date
         ? {
