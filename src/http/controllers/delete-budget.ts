@@ -1,7 +1,6 @@
 import { PrismaBudgetsRepository } from "@/repositories/prisma/prisma-budgets-repostiory";
 import { DeleteBudgetService } from "@/services/delete-budget";
 import { BudgetBeforeCurrentDateError } from "@/services/errors/budget-before-current-date-error";
-import { BudgetDateAlreadyExistsError } from "@/services/errors/budget-date-already-exists-error";
 import { ResourceNotFoundError } from "@/services/errors/resource-not-found-error";
 import { UserNotAllowedError } from "@/services/errors/user-not-allowed-error";
 import { FastifyReply, FastifyRequest } from "fastify";

@@ -1,5 +1,4 @@
 import { BudgetsRepository } from "@/repositories/budgets-repository";
-import { Budget } from "generated/prisma";
 
 interface FetchUserBudgetsServiceRequest {
   userId: string;

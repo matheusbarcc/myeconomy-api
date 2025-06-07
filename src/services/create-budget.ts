@@ -1,7 +1,4 @@
 import { BudgetsRepository } from "@/repositories/budgets-repository";
-import { BudgetDateAlreadyExistsError } from "./errors/budget-date-already-exists-error";
-import dayjs from "dayjs";
-import { BudgetBeforeCurrentDateError } from "./errors/budget-before-current-date-error";
 import { validateBeforeCurrentDate } from "@/utils/validate-before-current-date";
 import { validateDuplicateDate } from "@/utils/validate-duplicate-date";
 
@@ -15,7 +12,7 @@ export class CreateBudgetService {
   constructor(private budgetRepository: BudgetsRepository) {}
 
   async execute({ userId, amountInCents, date }: CreateBudgetServiceRequest) {
-    validateBeforeCurrentDate(date);
+    validateBeforeCurrentDate(date, "budget");
 
     await validateDuplicateDate(this.budgetRepository, userId, date);
 

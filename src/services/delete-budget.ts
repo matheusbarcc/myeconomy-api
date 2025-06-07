@@ -22,7 +22,7 @@ export class DeleteBudgetService {
       throw new UserNotAllowedError();
     }
 
-    validateBeforeCurrentDate(budgetInDB.date);
+    validateBeforeCurrentDate(budgetInDB.date, "budget");
 
     // TODO: delete all expenses for this month
 

@@ -21,26 +21,26 @@
 ### Limites
 
 - [X] POST /budgets
-  - req: { amount, date }
+  - req: { amountInCents, date }
 
 - [X] PUT /budgets
-  - req: { id, amount, date }
+  - req: { id, amountInCents, date }
 
 - [X] DELETE /budgets/{ id }
 
-- [ ] GET /budgets
-  - res: { id, amount, date }[]
+- [X] GET /budgets
+  - res: { id, amountInCents, date }[]
 
 ### Despesas
 
-- [ ] POST /expenses
-  - req: { description, amount, date }
+- [X] POST /expenses
+  - req: { description, amountInCents, date }
 
 - [ ] PUT /expenses
-  - req: { id, description, amount, date }
+  - req: { id, description, amountInCents, date }
 
 - [ ] DELETE /expenses/{ id }
 
 - [ ] GET /expenses/{ date }
-  - res: { id, amount, date }[]
+  - res: { id, amountInCents, date }[]
   - obs: se passar date retorna apenas as despesas do mes, se nao retorna todas

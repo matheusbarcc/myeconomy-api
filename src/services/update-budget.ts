@@ -1,11 +1,8 @@
 import { BudgetsRepository } from "@/repositories/budgets-repository";
-import { BudgetDateAlreadyExistsError } from "./errors/budget-date-already-exists-error";
-import dayjs from "dayjs";
-import { BudgetBeforeCurrentDateError } from "./errors/budget-before-current-date-error";
-import { ResourceNotFoundError } from "./errors/resource-not-found-error";
-import { UserNotAllowedError } from "./errors/user-not-allowed-error";
 import { validateBeforeCurrentDate } from "@/utils/validate-before-current-date";
 import { validateDuplicateDate } from "@/utils/validate-duplicate-date";
+import { ResourceNotFoundError } from "./errors/resource-not-found-error";
+import { UserNotAllowedError } from "./errors/user-not-allowed-error";
 
 interface UpdateBudgetServiceRequest {
   userId: string;
@@ -33,9 +30,9 @@ export class UpdateBudgetService {
       throw new UserNotAllowedError();
     }
 
-    validateBeforeCurrentDate(date);
+    validateBeforeCurrentDate(date, "budget");
 
-    validateBeforeCurrentDate(budgetInDB.date);
+    validateBeforeCurrentDate(budgetInDB.date, "budget");
 
     await validateDuplicateDate(this.budgetRepository, userId, date, budgetId);
 
