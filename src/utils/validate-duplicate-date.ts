@@ -7,11 +7,7 @@ export async function validateDuplicateDate(
   date: Date,
   budgetId?: string
 ) {
-  const budgetInSameMonth = await repository.findByYearAndMonth(
-    userId,
-    date.getUTCFullYear(),
-    date.getUTCMonth()
-  );
+  const budgetInSameMonth = await repository.findByUserIdAndDate(userId, date);
 
   if (budgetInSameMonth && budgetInSameMonth.id !== budgetId) {
     throw new BudgetDateAlreadyExistsError();

@@ -16,18 +16,30 @@ export class PrismaBudgetsRepository implements BudgetsRepository {
     return budgets;
   }
 
-  async findByYearAndMonth(userId: string, year: number, month: number) {
-    const budget = await prisma.budget.findFirst({
-      where: {
-        user_id: userId,
-        date: {
-          gte: new Date(Date.UTC(year, month, 1)),
-          lt: new Date(Date.UTC(year, month + 1, 1)),
-        },
+  async findByUserIdAndDate(userId: string, date?: Date) {
+    const year = date?.getUTCFullYear();
+    const month = date?.getUTCMonth();
+
+    console.log(year, month);
+
+    const budgets = await prisma.budget.findFirst({
+      where: date
+        ? {
+            user_id: userId,
+            date: {
+              gte: new Date(Date.UTC(year!, month!, 1)),
+              lt: new Date(Date.UTC(year!, month! + 1, 1)),
+            },
+          }
+        : {
+            user_id: userId,
+          },
+      orderBy: {
+        date: "desc",
       },
     });
 
-    return budget;
+    return budgets;
   }
 
   async findById(id: string) {

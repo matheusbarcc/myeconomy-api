@@ -14,8 +14,8 @@
 
 ## Rotas privadas
 
-- [ ] GET /progress/{ date }
-  - res: { date, spent, budget, status: 'ongoing' | 'completed' }
+- [X] GET /progress/{ date }
+  - res: { date, spentInCents, budgetInCents, status: 'ongoing' | 'completed' | 'pending' }
   - obs: se nao passar date, retorna com data atual 
 
 ### Limites

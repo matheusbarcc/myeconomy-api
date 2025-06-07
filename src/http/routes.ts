@@ -11,6 +11,7 @@ import { createExpense } from "./controllers/create-expense";
 import { updateExpense } from "./controllers/update-expense";
 import { deleteExpense } from "./controllers/delete-expense";
 import { fetchUserExpenses } from "./controllers/fetch-expenses";
+import { getProgress } from "./controllers/get-progress";
 
 export async function appRoutes(app: FastifyInstance) {
   // public
@@ -19,6 +20,8 @@ export async function appRoutes(app: FastifyInstance) {
 
   // private
   app.get("/me", { onRequest: [verifyJWT] }, getUserDetails);
+
+  app.get("/progress/:date?", { onRequest: [verifyJWT] }, getProgress);
 
   app.post("/budgets", { onRequest: [verifyJWT] }, createBudget);
   app.get("/budgets", { onRequest: [verifyJWT] }, fetchUserBudgets);
