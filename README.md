@@ -20,7 +20,7 @@
 
 ### Limites
 
-- [ ] POST /budgets
+- [X] POST /budgets
   - req: { amount, date }
 
 - [ ] PUT /budgets
