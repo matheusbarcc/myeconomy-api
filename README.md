@@ -41,6 +41,6 @@
 
 - [X] DELETE /expenses/{ id }
 
-- [ ] GET /expenses/{ date }
+- [X] GET /expenses/{ date }
   - res: { id, amountInCents, date }[]
-  - obs: se passar date retorna apenas as despesas do mes, se nao retorna todas
+  - obs: se passar date retorna apenas as despesas do mes, se nao, retorna todas

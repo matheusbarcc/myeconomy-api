@@ -10,6 +10,7 @@ import { fetchUserBudgets } from "./controllers/fetch-budgets";
 import { createExpense } from "./controllers/create-expense";
 import { updateExpense } from "./controllers/update-expense";
 import { deleteExpense } from "./controllers/delete-expense";
+import { fetchUserExpenses } from "./controllers/fetch-expenses";
 
 export async function appRoutes(app: FastifyInstance) {
   // public
@@ -25,6 +26,7 @@ export async function appRoutes(app: FastifyInstance) {
   app.delete("/budgets/:budgetId", { onRequest: [verifyJWT] }, deleteBudget);
 
   app.post("/expenses", { onRequest: [verifyJWT] }, createExpense);
+  app.get("/expenses/:date?", { onRequest: [verifyJWT] }, fetchUserExpenses);
   app.put("/expenses", { onRequest: [verifyJWT] }, updateExpense);
   app.delete("/expenses/:expenseId", { onRequest: [verifyJWT] }, deleteExpense);
 }
