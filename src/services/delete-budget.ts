@@ -24,8 +24,6 @@ export class DeleteBudgetService {
 
     validateBeforeCurrentDate(budgetInDB.date, "budget");
 
-    // TODO: delete all expenses for this month
-
     await this.budgetRepository.deleteById(budgetId);
   }
 }

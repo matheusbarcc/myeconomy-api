@@ -9,8 +9,8 @@ export async function createExpense(
   reply: FastifyReply
 ) {
   const createExpenseBodySchema = z.object({
-    description: z.string(),
-    amountInCents: z.number(),
+    description: z.string().min(1, "A descrição é obrigatória."),
+    amountInCents: z.number().min(1, "O valor deve ser maior que zero."),
     date: z.coerce.date(),
   });
 

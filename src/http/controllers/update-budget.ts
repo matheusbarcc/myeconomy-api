@@ -12,8 +12,8 @@ export async function updateBudget(
   reply: FastifyReply
 ) {
   const updateBudgetBodySchema = z.object({
-    id: z.string(),
-    amountInCents: z.number(),
+    id: z.string().min(1, "O id é obrigatório."),
+    amountInCents: z.number().min(1, "O valor deve ser maior que zero."),
     date: z.coerce.date(),
   });
 

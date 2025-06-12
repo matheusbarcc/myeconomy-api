@@ -5,12 +5,21 @@ import { FastifyReply, FastifyRequest } from "fastify";
 import { z } from "zod";
 
 export async function signUp(request: FastifyRequest, reply: FastifyReply) {
-  const signUpBodySchema = z.object({
-    name: z.string(),
-    email: z.string().email(),
-    birthday: z.coerce.date(),
-    password: z.string().min(3),
-  });
+  const signUpBodySchema = z
+    .object({
+      name: z.string().min(1, "O nome é obrigatório"),
+      email: z
+        .string()
+        .min(1, "O e-mail é obrigatório")
+        .email("E-mail inválido"),
+      birthday: z.coerce.date(),
+      password: z.string().min(3, "A senha deve ter pelo menos 3 caracteres"),
+      password_confirmation: z.string(),
+    })
+    .refine((data) => data.password === data.password_confirmation, {
+      path: ["password_confirmation"],
+      message: "A confirmação da senha não confere",
+    });
 
   const { name, email, birthday, password } = signUpBodySchema.parse(
     request.body

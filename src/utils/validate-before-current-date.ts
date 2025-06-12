@@ -1,6 +1,5 @@
 import { BudgetBeforeCurrentDateError } from "@/services/errors/budget-before-current-date-error";
 import { ExpenseBeforeCurrentDateError } from "@/services/errors/expense-before-current-date-error";
-import dayjs from "dayjs";
 
 export function validateBeforeCurrentDate(
   date: Date,

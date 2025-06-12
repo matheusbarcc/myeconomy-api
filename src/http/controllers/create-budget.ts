@@ -10,7 +10,7 @@ export async function createBudget(
   reply: FastifyReply
 ) {
   const createBudgetBodySchema = z.object({
-    amountInCents: z.number(),
+    amountInCents: z.number().min(1, "O valor deve ser maior que zero."),
     date: z.coerce.date(),
   });
 
