@@ -12,6 +12,8 @@ import { updateExpense } from "./controllers/update-expense";
 import { deleteExpense } from "./controllers/delete-expense";
 import { fetchUserExpenses } from "./controllers/fetch-expenses";
 import { getProgress } from "./controllers/get-progress";
+import { getBudgetById } from "./controllers/get-budget-by-id";
+import { getExpenseById } from "./controllers/get-expense-by-id";
 
 export async function appRoutes(app: FastifyInstance) {
   // public
@@ -25,11 +27,17 @@ export async function appRoutes(app: FastifyInstance) {
 
   app.post("/budgets", { onRequest: [verifyJWT] }, createBudget);
   app.get("/budgets", { onRequest: [verifyJWT] }, fetchUserBudgets);
+  app.get("/budgets/id/:budgetId", { onRequest: [verifyJWT] }, getBudgetById);
   app.put("/budgets", { onRequest: [verifyJWT] }, updateBudget);
   app.delete("/budgets/:budgetId", { onRequest: [verifyJWT] }, deleteBudget);
 
   app.post("/expenses", { onRequest: [verifyJWT] }, createExpense);
   app.get("/expenses/:date?", { onRequest: [verifyJWT] }, fetchUserExpenses);
+  app.get(
+    "/expenses/id/:expenseId",
+    { onRequest: [verifyJWT] },
+    getExpenseById
+  );
   app.put("/expenses", { onRequest: [verifyJWT] }, updateExpense);
   app.delete("/expenses/:expenseId", { onRequest: [verifyJWT] }, deleteExpense);
 }
